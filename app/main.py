@@ -8,6 +8,7 @@ from communications import (
     check_auth,
     create_short_url,
     delete_short_url,
+    get_short_url_list,
 )
 
 
@@ -65,6 +66,16 @@ def delete_short_url_endpoint():
     user_id = getattr(request, "user_id", "")
 
     response = delete_short_url(user_id, short_url_id)
+    return response, response["code"]
+
+
+@app.route("/get_short_url_list", methods=["GET"])
+# @swag_from("flasgger_docs/get_short_url_list_endpoint.yml")
+@is_authorized
+def get_short_url_list_endpoint():
+    user_id = getattr(request, "user_id", "")
+
+    response = get_short_url_list(user_id)
     return response, response["code"]
 
 

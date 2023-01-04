@@ -42,3 +42,15 @@ def delete_short_url(user_id, short_url_id, adapters_handler_url=get_adapters_ha
     }
     response = requests.delete(delete_url, params=payload)
     return response.json()
+
+
+def get_short_url_list(user_id, adapters_handler_url=get_adapters_handler_url()):
+    """
+    Get all short URLs of a user.
+    """
+    get_url = f"{adapters_handler_url}/get_short_url_list"
+    payload = {
+        "user_id": user_id,
+    }
+    response = requests.get(get_url, params=payload)
+    return response.json()
