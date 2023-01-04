@@ -1,9 +1,26 @@
-from flask import Flask, json
+from functools import wraps
+
+from flask import Flask, json, request
 from werkzeug.exceptions import HTTPException
 
 from settings import HOST, PORT
+from communications import check_auth
+
 
 app = Flask(__name__)
+
+
+def is_authorized(f):
+    @wraps(f)
+    def decorated_func(*args, **kwargs):
+        authorization = request.headers.get("Authorization", "")
+        auth_response = check_auth(authorization)
+        if auth_response["code"] == 200:
+            setattr(request, "user_id", auth_response["data"]["user_id"])
+            return f(*args, **kwargs)
+        else:
+            return auth_response, auth_response["code"]
+    return decorated_func
 
 
 @app.errorhandler(HTTPException)
@@ -22,9 +39,11 @@ def handle_exception(e):
     return response
 
 
-@app.route("/")
+@app.route("/", methods=["POST"])
+@is_authorized
 def hello_world():
-    return "<p>Hello, World!</p>"
+    user_id = getattr(request, "user_id", None)
+    return f"<p>{user_id}</p>"
 
 
 if __name__ == '__main__':
