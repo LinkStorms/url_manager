@@ -4,7 +4,10 @@ from flask import Flask, json, request
 from werkzeug.exceptions import HTTPException
 
 from settings import HOST, PORT
-from communications import check_auth
+from communications import (
+    check_auth,
+    create_short_url,
+)
 
 
 app = Flask(__name__)
@@ -39,11 +42,18 @@ def handle_exception(e):
     return response
 
 
-@app.route("/", methods=["POST"])
+@app.route("/create_short_url", methods=["POST"])
+# @swag_from("flasgger_docs/create_short_url_endpoint.yml")
 @is_authorized
-def hello_world():
-    user_id = getattr(request, "user_id", None)
-    return f"<p>{user_id}</p>"
+def create_short_url_endpoint():
+    url = request.json.get("url", "")
+    alias = request.json.get("alias", "")
+    note = request.json.get("note", "")
+    preferred_service = request.json.get("preferred_service", "")
+    user_id = getattr(request, "user_id", "")
+
+    response = create_short_url(user_id, url, alias, note, preferred_service)
+    return response, response["code"]
 
 
 if __name__ == '__main__':
