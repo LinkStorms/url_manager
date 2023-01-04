@@ -1,10 +1,10 @@
 import requests
 
-from settings import DATA_LAYER, DB_PATH
+from settings import USER_HANDLER
 
 
-def get_data_layer_url():
-    return f"{DATA_LAYER[1]}:{DATA_LAYER[2]}"
+def get_user_handler_url():
+    return f"{USER_HANDLER[1]}:{USER_HANDLER[2]}"
 
 
 def check_reachability(service_name, service_url):
@@ -15,6 +15,6 @@ def check_reachability(service_name, service_url):
     return True
 
 
-def is_data_layer_reachable():
-    data_layer_url = get_data_layer_url()
-    return check_reachability("data_layer", data_layer_url)
+def is_user_handler_reachable():
+    user_handler_url = get_user_handler_url()
+    return check_reachability("user_handler", user_handler_url)
