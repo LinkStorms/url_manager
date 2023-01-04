@@ -7,6 +7,7 @@ from settings import HOST, PORT
 from communications import (
     check_auth,
     create_short_url,
+    delete_short_url,
 )
 
 
@@ -53,6 +54,17 @@ def create_short_url_endpoint():
     user_id = getattr(request, "user_id", "")
 
     response = create_short_url(user_id, url, alias, note, preferred_service)
+    return response, response["code"]
+
+
+@app.route("/delete_short_url", methods=["DELETE"])
+# @swag_from("flasgger_docs/delete_short_url_endpoint.yml")
+@is_authorized
+def delete_short_url_endpoint():
+    short_url_id = request.args.get("short_url_id", "")
+    user_id = getattr(request, "user_id", "")
+
+    response = delete_short_url(user_id, short_url_id)
     return response, response["code"]
 
 
