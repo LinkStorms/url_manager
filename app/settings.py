@@ -6,3 +6,4 @@ PORT="5010"
 BASE_URL = "http://localhost"
 
 USER_HANDLER = ("user_handler", BASE_URL, "5005")
+ADAPTERS_HANDLER = ("adapters_handler", BASE_URL, "5003")
