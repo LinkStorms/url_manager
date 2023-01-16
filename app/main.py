@@ -2,6 +2,7 @@ from functools import wraps
 
 from flask import Flask, json, request
 from werkzeug.exceptions import HTTPException
+from flasgger import Swagger, swag_from
 
 from settings import HOST, PORT
 from communications import (
@@ -13,6 +14,7 @@ from communications import (
 
 
 app = Flask(__name__)
+swagger = Swagger(app)
 
 
 def is_authorized(f):
@@ -45,7 +47,7 @@ def handle_exception(e):
 
 
 @app.route("/create_short_url", methods=["POST"])
-# @swag_from("flasgger_docs/create_short_url_endpoint.yml")
+@swag_from("flasgger_docs/create_short_url_endpoint.yml")
 @is_authorized
 def create_short_url_endpoint():
     url = request.json.get("url", "")
