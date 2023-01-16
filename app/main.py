@@ -72,7 +72,7 @@ def delete_short_url_endpoint():
 
 
 @app.route("/get_short_url_list", methods=["GET"])
-# @swag_from("flasgger_docs/get_short_url_list_endpoint.yml")
+@swag_from("flasgger_docs/get_short_url_list_endpoint.yml")
 @is_authorized
 def get_short_url_list_endpoint():
     user_id = getattr(request, "user_id", "")
