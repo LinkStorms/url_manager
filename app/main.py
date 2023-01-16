@@ -61,7 +61,7 @@ def create_short_url_endpoint():
 
 
 @app.route("/delete_short_url", methods=["DELETE"])
-# @swag_from("flasgger_docs/delete_short_url_endpoint.yml")
+@swag_from("flasgger_docs/delete_short_url_endpoint.yml")
 @is_authorized
 def delete_short_url_endpoint():
     short_url_id = request.args.get("short_url_id", "")
