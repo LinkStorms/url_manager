@@ -1,7 +1,6 @@
 # URL Manager
 This service is responsible for creating the short URLs and for listing and
-managing the already existing ones. It is handling the registration and login
-of users, and the creation of a token for authentication.
+managing the already existing ones.
 
 ## Managing the Environment and Dependencies
 First install `virtualenv` with pip.
