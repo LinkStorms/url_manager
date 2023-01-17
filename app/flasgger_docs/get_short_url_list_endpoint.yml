@@ -1,5 +1,7 @@
 Return list of short urls of a certain user.
 ---
+tags:
+  - URL
 parameters:
   - in: header
     name: Authorization
