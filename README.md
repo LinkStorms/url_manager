@@ -2,6 +2,12 @@
 This service is responsible for creating the short URLs and for listing and
 managing the already existing ones.
 
+## Service Requirements
+This service is using the
+[`user_handler`](https://github.com/LinkStorms/user_handler) and
+[`adapters_handler`](https://github.com/LinkStorms/adapters_handler) services.
+Therefore, you need to run the them before running this service.
+
 ## Managing the Environment and Dependencies
 First install `virtualenv` with pip.
 ```bash
